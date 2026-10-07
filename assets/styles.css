@@ -1,0 +1,207 @@
+/* EL TOP JOHN — la página del enlace de «Compartir». La paleta es la del tema
+   «neón» del juego (`neonv2` en `src/theme/colors.ts`), que es el de fábrica y
+   el de la ficha de las tiendas: fondo amarillo, tinta negra, esquina a
+   escuadra y sombra dura desplazada. Sin fuentes de fuera: la del sistema, como
+   la app, y así un toque desde WhatsApp no espera a nadie. */
+
+:root {
+  --bg: #FFE135;
+  --ray: #F7CE0E;
+  --ink: #000000;
+  --muted: #4F4A38;
+  --surface: #FFFFFF;
+  --go: #00FF7F;
+  --red-ink: #C11616;
+  --blue-ink: #00668F;
+  --drawer: #23A094;
+
+  --line: 4px;
+  --drop: 6px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* `clip` y no `hidden`: los rayos de la mascota se salen de su columna a
+   propósito, y no tienen que dar scroll a lo ancho. */
+.page { max-width: 1040px; margin: 0 auto; padding: 0 20px 48px; overflow-x: hidden; overflow-x: clip; }
+
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--blue-ink); outline-offset: 3px; }
+
+/* Idioma: la página lleva las dos versiones y se enseña una. */
+html[data-lang="es"] [lang="en"] { display: none !important; }
+html[data-lang="en"] [lang="es"] { display: none !important; }
+
+/* ---------- Barra de arriba ---------- */
+
+.top { display: flex; justify-content: flex-end; padding: 16px 0 4px; }
+
+.langs { display: flex; border: 3px solid var(--ink); background: var(--surface); }
+.langs button {
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.langs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+/* ---------- Portada ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "eyebrow eyebrow" "title art" "rest rest";
+  align-items: center;
+  gap: 20px 8px;
+  padding: 12px 0 8px;
+}
+.eyebrow { grid-area: eyebrow; }
+.title { grid-area: title; }
+.art { grid-area: art; }
+.rest { grid-area: rest; display: grid; gap: 22px; justify-items: start; }
+
+.eyebrow {
+  margin: 0 0 -8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-ink);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.9rem, 15.5vw, 7.2rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+}
+h1 span { display: block; white-space: nowrap; }
+h1 .john { color: var(--red-ink); }
+
+/* Los rayos del icono, solo detrás de la mascota: el texto se queda sobre el
+   amarillo liso, que es contra el que están medidas las tintas. */
+.art { position: relative; display: grid; place-items: center; }
+.art::before {
+  content: "";
+  position: absolute;
+  inset: -22%;
+  background: repeating-conic-gradient(var(--ray) 0 9deg, transparent 9deg 18deg);
+  -webkit-mask-image: radial-gradient(closest-side, #000 35%, transparent 100%);
+          mask-image: radial-gradient(closest-side, #000 35%, transparent 100%);
+}
+.art img { position: relative; display: block; width: min(28vw, 150px); height: auto; }
+
+.claim {
+  margin: 0;
+  background: var(--surface);
+  border: var(--line) solid var(--ink);
+  box-shadow: var(--drop) var(--drop) 0 var(--ink);
+  padding: 12px 18px;
+  font-size: clamp(1.15rem, 4.6vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.claim span { display: block; }
+
+.pitch { margin: 0; max-width: 34em; font-size: 1.06rem; }
+.pitch strong { font-weight: 800; }
+
+.stores { display: flex; flex-wrap: wrap; gap: 14px; }
+.store {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 168px;
+  background: var(--go);
+  color: var(--ink);
+  border: var(--line) solid var(--ink);
+  box-shadow: var(--drop) var(--drop) 0 var(--ink);
+  padding: 9px 20px 11px;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.store small { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+a.store[href]:active { transform: translate(var(--drop), var(--drop)); box-shadow: none; }
+
+/* El mismo botón dice «descárgalo» o «muy pronto» según lo que mande go.js. */
+.store.soon { background: transparent; border-style: dashed; box-shadow: none; color: var(--muted); }
+.store .when-soon, .store.soon .when-live { display: none; }
+.store.soon .when-soon { display: inline; }
+
+/* Solo para quien llega desde un Android mientras Play no esté publicado. */
+.note { display: none; margin: 0; max-width: 34em; border-left: var(--line) solid var(--ink); padding-left: 14px; font-weight: 600; }
+html[data-os="android"]:not([data-live-android]) .note { display: block; }
+
+@media (min-width: 820px) {
+  .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); grid-template-areas: "eyebrow art" "title art" "rest art"; gap: 26px 32px; padding: 28px 0 24px; }
+  .eyebrow { margin-bottom: -12px; font-size: 0.85rem; letter-spacing: 0.16em; }
+  .rest { align-self: start; }
+  .art img { width: min(30vw, 340px); }
+}
+
+/* ---------- Capturas ---------- */
+
+.shots {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 62%;
+  gap: 16px;
+  margin: 36px -20px 0;
+  padding: 0 26px 10px 20px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.shots::-webkit-scrollbar { display: none; }
+.shots li { scroll-snap-align: center; }
+.shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--surface);
+  border: var(--line) solid var(--ink);
+  box-shadow: var(--drop) var(--drop) 0 var(--ink);
+}
+
+@media (min-width: 700px) {
+  .shots { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin: 44px 0 0; padding: 0 var(--drop) var(--drop) 0; overflow: visible; }
+}
+
+/* ---------- Lo que trae ---------- */
+
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 40px 0 0; padding: 0 var(--drop) 0 0; list-style: none; }
+.facts li { background: var(--surface); border: var(--line) solid var(--ink); box-shadow: var(--drop) var(--drop) 0 var(--ink); padding: 12px 14px 14px; font-size: 0.9rem; line-height: 1.35; color: var(--muted); }
+.facts strong { display: block; margin-bottom: 3px; color: var(--ink); font-size: 1.05rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1.15; }
+
+@media (min-width: 820px) {
+  .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+  .facts strong { font-size: 1.18rem; }
+}
+
+/* ---------- Pie ---------- */
+
+.foot { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 48px; padding-top: 18px; border-top: var(--line) solid var(--ink); font-size: 0.88rem; font-weight: 600; }
+.foot .mail { margin-left: auto; }
+@media (max-width: 520px) { .foot .mail { margin-left: 0; } }
