@@ -40,8 +40,8 @@ viva y redirigir, porque los móviles sin actualizar la seguirán mandando.
 **2. `live`, cada vez que se publica en una tienda.** En `assets/go.js`:
 
 ```js
-ios:     { live: true,  ... },
-android: { live: false, ... },   // → true el día que salga en Google Play
+ios:     { live: true, ... },
+android: { live: true, ... },   // desde el 10 de octubre de 2026
 ```
 
 Con `false`, nadie salta a esa tienda y su botón dice «muy pronto». No hay que

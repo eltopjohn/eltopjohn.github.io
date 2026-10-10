@@ -25,7 +25,7 @@
       url: 'https://apps.apple.com/app/id6809137317',
     },
     android: {
-      live: false,
+      live: true,
       // `referrer` es lo que enseña Play Console en «Adquisición»: así se sabe
       // cuántas instalaciones vienen de un mensaje compartido.
       url: 'https://play.google.com/store/apps/details?id=com.gestiamigos.eltopjohn&referrer=utm_source%3Denlace',
