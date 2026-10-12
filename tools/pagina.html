@@ -1,0 +1,390 @@
+<!doctype html>
+<!-- LA PÁGINA, EN LOS DOS IDIOMAS. De aquí salen `index.html` (español) y
+     `en/index.html` (inglés) con `node tools/paginas.js`: esos dos no se editan.
+
+     Lo que cambia de un idioma a otro va en dos elementos seguidos, uno con
+     `lang="es"` y otro con `lang="en"`, y cada página se queda con el suyo. Vale
+     para todo, también para la cabecera. Van pegados a propósito, como las
+     cartas del juego: con las dos versiones a la vista, cruzar dos textos se ve
+     leyendo.
+
+     %LANG% es el idioma de la página, %BASE% el camino a la raíz (`./` o `../`)
+     y %SITE% la dirección publicada, que se escribe una sola vez en
+     `tools/paginas.js`. -->
+<html lang="%LANG%">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title lang="es">EL TOP JOHN — juego de preguntas para grupos</title>
+<title lang="en">EL TOP JOHN — a party quiz game</title>
+<meta lang="es" name="description" content="Cartas de 10 opciones, un solo móvil y un bote que se pierde entero si fallas. Para iPhone y Android, en español e inglés, sin anuncios y sin cuenta.">
+<meta lang="en" name="description" content="Cards with 10 options, one phone passed around and a pot you lose whole when you miss. For iPhone and Android, in English and Spanish, no ads and no account.">
+
+<!-- Antes que nada: en un móvil con tienda, esto salta sin llegar a pintar. -->
+<script src="%BASE%assets/go.js"></script>
+
+<!-- Lo que lee WhatsApp para la vista previa. No ejecuta JavaScript, así que
+     tiene que estar escrito tal cual en cada página: por eso hay una por idioma.
+     La imagen va con la dirección entera. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EL TOP JOHN">
+<meta lang="es" property="og:locale" content="es_ES">
+<meta lang="en" property="og:locale" content="en_US">
+<meta lang="es" property="og:title" content="EL TOP JOHN — 10 opciones, 1 respuesta cada una">
+<meta lang="en" property="og:title" content="EL TOP JOHN — 10 options, 1 answer each">
+<meta lang="es" property="og:description" content="Aciertas y sumas. Fallas y lo pierdes todo. Un juego de preguntas para la mesa, con un solo móvil.">
+<meta lang="en" property="og:description" content="Get it right and score. Get it wrong and lose it all. A quiz game for the table, played on a single phone.">
+<meta lang="es" property="og:url" content="%SITE%/">
+<meta lang="en" property="og:url" content="%SITE%/en/">
+<meta lang="es" property="og:image" content="%SITE%/assets/og-es.jpg">
+<meta lang="en" property="og:image" content="%SITE%/assets/og-en.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Para los buscadores: cada idioma es su propia página y se señalan entre sí. -->
+<link lang="es" rel="canonical" href="%SITE%/">
+<link lang="en" rel="canonical" href="%SITE%/en/">
+<link rel="alternate" hreflang="es" href="%SITE%/">
+<link rel="alternate" hreflang="en" href="%SITE%/en/">
+<link rel="alternate" hreflang="x-default" href="%SITE%/en/">
+
+<!-- Lo mismo que dice la página, en el formato que leen las máquinas: qué es,
+     dónde se instala y cuánto cuesta. -->
+<script lang="es" type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["VideoGame", "MobileApplication"],
+  "name": "EL TOP JOHN",
+  "url": "%SITE%/",
+  "image": "%SITE%/assets/og-es.jpg",
+  "description": "Juego de preguntas para grupos de 2 a 8 personas con un solo móvil que se va pasando. Cada carta tiene 10 opciones: si aciertas, sumas al bote y decides si te plantas o sigues; si fallas, lo pierdes entero. 130 cartas en 11 categorías, en español e inglés. Se juega sin conexión, sin anuncios y sin cuenta.",
+  "inLanguage": ["es", "en"],
+  "genre": ["Trivia", "Juego de preguntas", "Juego para grupos"],
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "iOS, Android",
+  "gamePlatform": ["iOS", "Android"],
+  "playMode": "https://schema.org/MultiPlayer",
+  "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 8 },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "description": "Gratis con 40 cartas. Las 130 se desbloquean con una compra única, sin suscripción."
+  },
+  "installUrl": [
+    "https://apps.apple.com/app/id6809137317",
+    "https://play.google.com/store/apps/details?id=com.gestiamigos.eltopjohn"
+  ]
+}
+</script>
+<script lang="en" type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["VideoGame", "MobileApplication"],
+  "name": "EL TOP JOHN",
+  "url": "%SITE%/en/",
+  "image": "%SITE%/assets/og-en.jpg",
+  "description": "A quiz game for groups of 2 to 8 on a single phone that gets passed around. Every card has 10 options: get one right and you add to the pot, then choose to bank it or push on; get one wrong and you lose it all. 130 cards in 11 categories, in English and Spanish. Plays offline, with no ads and no account.",
+  "inLanguage": ["en", "es"],
+  "genre": ["Trivia", "Quiz game", "Party game"],
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "iOS, Android",
+  "gamePlatform": ["iOS", "Android"],
+  "playMode": "https://schema.org/MultiPlayer",
+  "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 8 },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "description": "Free with 40 cards. A single purchase unlocks all 130, with no subscription."
+  },
+  "installUrl": [
+    "https://apps.apple.com/app/id6809137317",
+    "https://play.google.com/store/apps/details?id=com.gestiamigos.eltopjohn"
+  ]
+}
+</script>
+
+<meta name="theme-color" content="#FFE135">
+<meta name="apple-itunes-app" content="app-id=6809137317">
+<link rel="icon" href="%BASE%assets/favicon.png">
+<link rel="apple-touch-icon" href="%BASE%assets/icon-180.png">
+<link rel="stylesheet" href="%BASE%assets/styles.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <!-- Enlaces y no botones: cada idioma es otra página. `data-set-lang` es
+         para que go.js recuerde lo que se eligió y no vuelva a adivinar. -->
+    <nav class="langs" lang="es" aria-label="Idioma">
+      <a href="%BASE%" hreflang="es" data-set-lang="es" aria-current="page">ES</a>
+      <a href="%BASE%en/" hreflang="en" data-set-lang="en">EN</a>
+    </nav>
+    <nav class="langs" lang="en" aria-label="Language">
+      <a href="%BASE%" hreflang="es" data-set-lang="es">ES</a>
+      <a href="%BASE%en/" hreflang="en" data-set-lang="en" aria-current="page">EN</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <p class="eyebrow" lang="es">10 opciones · 1 respuesta cada una</p>
+      <p class="eyebrow" lang="en">10 options · 1 answer each</p>
+
+      <div class="title">
+        <h1><span>EL TOP</span><span class="john">JOHN</span></h1>
+      </div>
+
+      <div class="art"><img src="%BASE%assets/mascota.png" alt="" width="456" height="600"></div>
+
+      <div class="rest">
+        <p class="claim" lang="es"><span>Aciertas y sumas.</span><span>Fallas y lo pierdes todo.</span></p>
+        <p class="claim" lang="en"><span>Get it right and score.</span><span>Get it wrong and lose it all.</span></p>
+
+        <!-- El enlace que vale es el de go.js, que le añade de dónde viene la
+             visita; este es el que se queda quien no ejecuta JavaScript. Y si
+             una tienda deja de estar publicada (`live`), go.js apaga su botón. -->
+        <div class="stores">
+          <a class="store" data-store="ios" href="https://apps.apple.com/app/id6809137317">
+            <small lang="es">Descárgalo en</small>
+            <small lang="en">Download on the</small>
+            App Store
+          </a>
+          <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.gestiamigos.eltopjohn">
+            <small lang="es">Disponible en</small>
+            <small lang="en">Get it on</small>
+            Google Play
+          </a>
+        </div>
+
+        <p class="pitch" lang="es">Elige una opción, respóndela <strong>en voz alta</strong> y destápala. Si aciertas, sumas. Y decides: <strong>¿te plantas o sigues?</strong> Si fallas, pierdes todo lo de la ronda. Un solo móvil que se va pasando, de 2 a 8 jugadores.</p>
+        <p class="pitch" lang="en">Pick an option, answer it <strong>out loud</strong> and reveal it. Get it right and you score. Then you choose: <strong>bank it or push on?</strong> Get it wrong and you lose the whole round. One phone passed around, 2 to 8 players.</p>
+      </div>
+    </div>
+
+    <ul class="shots">
+      <li>
+        <img lang="es" src="%BASE%assets/shot-es-1.jpg" alt="El tablero a media carta: cuatro opciones acertadas, una fallada y un bote de 2 en juego." width="600" height="1304">
+        <img lang="en" src="%BASE%assets/shot-en-1.jpg" alt="The board halfway through a card: four options right, one wrong and a pot of 2 at stake." width="600" height="1304">
+      </li>
+      <li>
+        <img lang="es" src="%BASE%assets/shot-es-2.jpg" alt="¿Te plantas o sigues? Una opción recién acertada, con los botones de plantarse o seguir tirando." width="600" height="1304" loading="lazy">
+        <img lang="en" src="%BASE%assets/shot-en-2.jpg" alt="Bank it or push on? An option just answered right, with the buttons to bank it or keep going." width="600" height="1304" loading="lazy">
+      </li>
+      <li>
+        <img lang="es" src="%BASE%assets/shot-es-3.jpg" alt="Una carta con fotos: diez monumentos que hay que nombrar." width="600" height="1304" loading="lazy">
+        <img lang="en" src="%BASE%assets/shot-en-3.jpg" alt="A photo card: ten monuments to name." width="600" height="1304" loading="lazy">
+      </li>
+    </ul>
+
+    <ul class="facts">
+      <li lang="es"><strong>130 cartas</strong>Escritas a mano, en español y en inglés.</li>
+      <li lang="en"><strong>130 cards</strong>Written by hand, in Spanish and English.</li>
+      <li lang="es"><strong>40 gratis</strong>El resto, con una compra única. Sin suscripción.</li>
+      <li lang="en"><strong>40 free</strong>The rest with a single purchase. No subscription.</li>
+      <li lang="es"><strong>Sin conexión</strong>Las cartas van dentro de la app.</li>
+      <li lang="en"><strong>Plays offline</strong>The cards live inside the app.</li>
+      <li lang="es"><strong>Sin anuncios</strong>Ni cuenta, ni registro, ni permisos.</li>
+      <li lang="en"><strong>No ads</strong>No account, no sign-up, no permissions.</li>
+    </ul>
+
+    <!-- Cuatro cartas de las 40 gratis, una por forma de responder, y las mismas
+         que ya salen en las capturas de las tiendas. Van como se ven en el juego
+         antes de destapar nada: la pregunta y las diez opciones, sin respuestas.
+         El texto es el de `src/data/cards/decks/` del juego; si una carta cambia
+         allí, se cambia aquí. -->
+    <section class="cards" aria-labelledby="cartas">
+      <h2 id="cartas" lang="es">Así son las cartas</h2>
+      <h2 id="cartas" lang="en">What a card looks like</h2>
+      <p class="lead" lang="es">Una pregunta, diez opciones tapadas y cuatro formas de responder. Estas cuatro son de las 40 gratis.</p>
+      <p class="lead" lang="en">One question, ten covered options and four ways to answer. These four are among the 40 free ones.</p>
+
+      <ul class="deck">
+        <li class="card">
+          <p class="tag" lang="es"><b>Geografía</b> <span>Sí o no</span></p>
+          <p class="tag" lang="en"><b>Geography</b> <span>Yes or no</span></p>
+          <h3 lang="es">¿Existe esta ley?</h3>
+          <h3 lang="en">Is this a real law?</h3>
+          <p class="hint" lang="es">Leyes de verdad mezcladas con bulos que circulan por ahí.</p>
+          <p class="hint" lang="en">Real laws mixed in with myths that get passed around.</p>
+          <ul>
+            <li lang="es">Singapur: prohibido vender chicle</li>
+            <li lang="en">Singapore: no selling chewing gum</li>
+            <li lang="es">Reino Unido: no morir en el Parlamento</li>
+            <li lang="en">UK: you may not die in Parliament</li>
+            <li lang="es">Suiza: prohibido tener una cobaya sola</li>
+            <li lang="en">Switzerland: no lone guinea pigs</li>
+            <li lang="es">Francia: no llamar Napoleón a un cerdo</li>
+            <li lang="en">France: no calling a pig Napoleon</li>
+            <li lang="es">Japón: te miden la cintura por ley</li>
+            <li lang="en">Japan: waistlines measured by law</li>
+            <li lang="es">Suiza: no tirar de la cisterna de noche</li>
+            <li lang="en">Switzerland: no flushing at night</li>
+            <li lang="es">Dinamarca: nombres de bebé de una lista</li>
+            <li lang="en">Denmark: baby names from a set list</li>
+            <li lang="es">Venecia: prohibido alimentar palomas</li>
+            <li lang="en">Venice: no feeding the pigeons</li>
+            <li lang="es">Reino Unido: el sello al revés es traición</li>
+            <li lang="en">UK: an upside-down stamp is treason</li>
+            <li lang="es">Afganistán: prohibido escuchar música</li>
+            <li lang="en">Afghanistan: listening to music is banned</li>
+          </ul>
+        </li>
+
+        <li class="card">
+          <p class="tag" lang="es"><b>Números</b> <span>Ordena del 1 al 10</span></p>
+          <p class="tag" lang="en"><b>Numbers</b> <span>Rank from 1 to 10</span></p>
+          <h3 lang="es">Ordena estas cosas por lo que costaron</h3>
+          <h3 lang="en">Rank these things by what they cost</h3>
+          <p class="hint" lang="es">1º = lo más caro. Son ventas reales, hasta 2026.</p>
+          <p class="hint" lang="en">1st = the priciest. Real sales, up to 2026.</p>
+          <ul>
+            <li lang="es">Un plátano pegado a la pared con cinta</li>
+            <li lang="en">A banana taped to a wall</li>
+            <li lang="es">Un cuadro de Leonardo da Vinci</li>
+            <li lang="en">A painting by Leonardo da Vinci</li>
+            <li lang="es">Una botella de Romanée-Conti de 1945</li>
+            <li lang="en">A bottle of 1945 Romanée-Conti</li>
+            <li lang="es">Un asiento en el cohete de Bezos</li>
+            <li lang="en">A seat on Bezos's rocket</li>
+            <li lang="es">Un iPhone de 2007 sin abrir</li>
+            <li lang="en">An unopened 2007 iPhone</li>
+            <li lang="es">Un Ferrari 250 GTO de 1962</li>
+            <li lang="en">A 1962 Ferrari 250 GTO</li>
+            <li lang="es">La camiseta de la mano de Dios</li>
+            <li lang="en">The Hand of God shirt</li>
+            <li lang="es">Un Mercedes 300 SLR de 1955</li>
+            <li lang="en">A 1955 Mercedes 300 SLR</li>
+            <li lang="es">El primer tuit de la historia</li>
+            <li lang="en">The first tweet ever sent</li>
+            <li lang="es">Una carta de Pikachu</li>
+            <li lang="en">A Pikachu card</li>
+          </ul>
+        </li>
+
+        <li class="card">
+          <p class="tag" lang="es"><b>Geografía</b> <span>Solo una es la buena</span></p>
+          <p class="tag" lang="en"><b>Geography</b> <span>Only one is right</span></p>
+          <h3 lang="es">¿Cuál es el desierto más grande del mundo?</h3>
+          <h3 lang="en">Which is the largest desert in the world?</h3>
+          <p class="hint" lang="es">Desierto es donde apenas llueve, con arena o sin ella.</p>
+          <p class="hint" lang="en">A desert is where it barely rains, sand or no sand.</p>
+          <ul>
+            <li lang="es">El Sáhara</li>
+            <li lang="en">The Sahara</li>
+            <li lang="es">El Ártico</li>
+            <li lang="en">The Arctic</li>
+            <li lang="es">La Antártida</li>
+            <li lang="en">Antarctica</li>
+            <li lang="es">El Gobi</li>
+            <li lang="en">The Gobi</li>
+            <li lang="es">El desierto Arábigo</li>
+            <li lang="en">The Arabian Desert</li>
+            <li lang="es">El Kalahari</li>
+            <li lang="en">The Kalahari</li>
+            <li lang="es">El Atacama</li>
+            <li lang="en">The Atacama</li>
+            <li lang="es">El desierto patagónico</li>
+            <li lang="en">The Patagonian Desert</li>
+            <li lang="es">El Gran Desierto de Victoria</li>
+            <li lang="en">The Great Victoria Desert</li>
+            <li lang="es">El Taklamakán</li>
+            <li lang="en">The Taklamakan</li>
+          </ul>
+        </li>
+
+        <li class="card">
+          <p class="tag" lang="es"><b>Música</b> <span>Di la respuesta</span></p>
+          <p class="tag" lang="en"><b>Music</b> <span>Say the answer</span></p>
+          <h3 lang="es">¿De qué película es esta canción?</h3>
+          <h3 lang="en">Which film is this song from?</h3>
+          <p class="hint" lang="es">Sonaba en la película, no en un anuncio.</p>
+          <p class="hint" lang="en">It played in the film, not in an advert.</p>
+          <!-- Los títulos se quedan en inglés en los dos idiomas, como en la carta. -->
+          <ul>
+            <li>My Heart Will Go On</li>
+            <li>Let It Go</li>
+            <li>Circle of Life</li>
+            <li>Eye of the Tiger</li>
+            <li>Stayin' Alive</li>
+            <li>I Will Always Love You</li>
+            <li>Danger Zone</li>
+            <li>Lose Yourself</li>
+            <li>Mrs. Robinson</li>
+            <li>Gangsta's Paradise</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Lo que pregunta quien todavía no lo tiene. Cada respuesta se entiende
+         sola, sin el resto de la página: es lo que copia un buscador o un
+         asistente cuando alguien le pide un juego así. -->
+    <section class="faq" aria-labelledby="dudas">
+      <h2 id="dudas" lang="es">Preguntas frecuentes</h2>
+      <h2 id="dudas" lang="en">Good to know</h2>
+      <dl>
+        <div>
+          <dt lang="es">¿Cuánta gente puede jugar?</dt>
+          <dt lang="en">How many people can play?</dt>
+          <dd lang="es">De 2 a 8, con un solo móvil que se va pasando. Los demás no tienen que instalar nada.</dd>
+          <dd lang="en">2 to 8, on one phone that gets passed around. Nobody else needs to install anything.</dd>
+        </div>
+        <div>
+          <dt lang="es">¿Hace falta internet?</dt>
+          <dt lang="en">Does it need internet?</dt>
+          <dd lang="es">No. Las cartas van dentro de la app y se juega sin conexión.</dd>
+          <dd lang="en">No. The cards live inside the app, so it plays offline.</dd>
+        </div>
+        <div>
+          <dt lang="es">¿Es gratis?</dt>
+          <dt lang="en">Is it free?</dt>
+          <dd lang="es">Se descarga gratis y trae 40 cartas. Las 130 se desbloquean con una compra única dentro de la app. No hay suscripción.</dd>
+          <dd lang="en">It is free to download and comes with 40 cards. A single in-app purchase unlocks all 130. There is no subscription.</dd>
+        </div>
+        <div>
+          <dt lang="es">¿Tiene anuncios o hay que registrarse?</dt>
+          <dt lang="en">Any ads or sign-up?</dt>
+          <dd lang="es">No. Ni anuncios, ni cuenta, ni permisos.</dd>
+          <dd lang="en">None. No ads, no account, no permissions.</dd>
+        </div>
+        <div>
+          <dt lang="es">¿En qué idiomas está?</dt>
+          <dt lang="en">Which languages?</dt>
+          <dd lang="es">En español y en inglés. Las 130 cartas están en los dos, y el idioma se cambia desde el menú.</dd>
+          <dd lang="en">English and Spanish. All 130 cards come in both, and you switch language from the menu.</dd>
+        </div>
+        <div>
+          <dt lang="es">¿De qué son las preguntas?</dt>
+          <dt lang="en">What are the questions about?</dt>
+          <dd lang="es">De 11 categorías: música, geografía, marcas, símbolos, números, literatura, historia, ciencia, naturaleza, cine y TV, y deporte. Algunas cartas llevan fotos o sonido.</dd>
+          <dd lang="en">11 categories: music, geography, brands, symbols, numbers, literature, history, science, nature, film &amp; TV, and sport. Some cards use photos or sound.</dd>
+        </div>
+        <div>
+          <dt lang="es">¿Cuánto dura una partida?</dt>
+          <dt lang="en">How long is a game?</dt>
+          <dd lang="es">Lo que decida la mesa: se juega a puntos (10, 15, 20 o 25) o a cartas (5, 10, 15 o 20), y se puede cortar cuando sea.</dd>
+          <dd lang="en">As long as the table wants: play to a score (10, 15, 20 or 25) or to a number of cards (5, 10, 15 or 20), and stop whenever you like.</dd>
+        </div>
+        <div>
+          <dt lang="es">¿En qué dispositivos funciona?</dt>
+          <dt lang="en">What does it run on?</dt>
+          <dd lang="es">En iPhone y iPad, y en móviles y tabletas Android.</dd>
+          <dd lang="en">iPhone and iPad, and Android phones and tablets.</dd>
+        </div>
+      </dl>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <a href="https://carcanye.github.io/eltopjohn-privacy/privacidad.html"><span lang="es">Privacidad</span><span lang="en">Privacy</span></a>
+    <a href="https://carcanye.github.io/eltopjohn-privacy/terminos.html"><span lang="es">Términos</span><span lang="en">Terms</span></a>
+    <a href="https://carcanye.github.io/eltopjohn-privacy/soporte.html"><span lang="es">Soporte</span><span lang="en">Support</span></a>
+    <a class="mail" href="mailto:eltopjohn@gmail.com">eltopjohn@gmail.com</a>
+  </footer>
+
+</div>
+</body>
+</html>
