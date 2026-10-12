@@ -63,25 +63,48 @@
       ? 'ios'
       : 'other';
 
+  // Cada idioma es una página: `/` en español y `/en/` en inglés.
+  var here = root.getAttribute('lang') === 'en' ? 'en' : 'es';
+
   // `?stay` deja ver la página desde un móvil que saltaría: para probarla.
-  // `replace` y no `href`, o el botón de atrás devolvería aquí y saltaría otra vez.
   var stay = params.has('stay');
+
+  // --- Contar la visita ---
+  // Una cuenta por día, canal, sistema e idioma en la base de datos del juego
+  // (`supabase/card_link_hits_schema.sql` de su repo), y nada de quien visita:
+  // ni identificador, ni cookie. Es lo que dice de dónde llega la gente cuando
+  // la App Store no lo dice. `sendBeacon` y no `fetch`: es lo único que el
+  // navegador promete entregar aunque la página ya se haya ido, que es justo lo
+  // que pasa cuando un móvil salta a la tienda. La clave es la pública, la
+  // misma que viaja dentro de la app.
+  var HITS = 'https://skrbslpfkicshybkxfzu.supabase.co/rest/v1/rpc/track_link_hit?apikey=sb_publishable_X8O1pIJ5cRa3i8CM0n2eew_Tk8pQzEF';
+
+  function count(event) {
+    // Ni robots ni pruebas: en local se sirve por http, y `?stay` es para mirar.
+    if (robot || stay || location.protocol !== 'https:') return;
+    try { navigator.sendBeacon(HITS, [channel, os, here, event].join('|')); } catch (e) { /* sin contar no pasa nada */ }
+  }
+
+  // `replace` y no `href`, o el botón de atrás devolvería aquí y saltaría otra vez.
   var store = STORES[os];
   var going = !!(store && store.live && !stay && !robot);
-  if (going) location.replace(store.url);
+  if (going) {
+    count('jump');
+    location.replace(store.url);
+  }
 
   // --- Idioma ---
-  // Cada idioma es una página: `/` en español y `/en/` en inglés. La inglesa no
-  // mueve a nadie —quien recibe ese enlace lo recibe en inglés—; la española
-  // pasa a la inglesa a quien la eligió antes, y a quien no tiene el navegador
-  // en una lengua de España. `?lang=en` es como se pedía antes de separarlas.
+  // La página inglesa no mueve a nadie —quien recibe ese enlace lo recibe en
+  // inglés—; la española pasa a la inglesa a quien la eligió antes, y a quien no
+  // tiene el navegador en una lengua de España. `?lang=en` es como se pedía
+  // antes de separarlas.
   var KEY = 'eltopjohn.web.lang';
-  var here = root.getAttribute('lang') === 'en' ? 'en' : 'es';
 
   function remembered() {
     try { return localStorage.getItem(KEY); } catch (e) { return null; }
   }
 
+  var hopping = false;
   if (here === 'es' && !going && !robot) {
     var asked = params.get('lang');
     var browser = (navigator.language || 'es').slice(0, 2).toLowerCase();
@@ -89,11 +112,15 @@
     var want = asked === 'es' || asked === 'en' ? asked : remembered() || guess;
     if (want === 'en') {
       // Lo demás de la dirección se conserva: `?stay`, y de dónde viene la visita.
+      hopping = true;
       params.delete('lang');
       var rest = params.toString();
       location.replace('en/' + (rest ? '?' + rest : ''));
     }
   }
+
+  // Quien se queda viendo la página. Quien pasa a la inglesa cuenta allí.
+  if (!going && !hopping) count('view');
 
   // --- Lo que necesita el DOM cargado ---
   document.addEventListener('DOMContentLoaded', function () {
@@ -101,10 +128,12 @@
     // un `<a>` sin `href` no es un enlace: así se apaga el de una tienda en la
     // que la app no está.
     Array.prototype.forEach.call(document.querySelectorAll('[data-store]'), function (el) {
-      var s = STORES[el.getAttribute('data-store')];
+      var name = el.getAttribute('data-store');
+      var s = STORES[name];
       if (!s) return;
       if (s.live) {
         el.setAttribute('href', s.url);
+        el.addEventListener('click', function () { count('click_' + name); });
         return;
       }
       el.removeAttribute('href');

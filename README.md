@@ -106,6 +106,25 @@ En la App Store no hay nada parecido que sirva con pocas descargas: App
 Analytics solo dice el tipo de fuente (búsqueda, otra app, una web) y no
 desglosa una campaña hasta que junta un mínimo.
 
+Por eso **la página cuenta ella sus visitas**, antes de saltar a la tienda: una
+cuenta por día, canal, sistema e idioma en la base de datos del juego
+(`card_link_hits`, ver `supabase/card_link_hits_schema.sql` de su repo), sin
+cookie ni identificador. Se lee desde el repo del juego:
+
+```bash
+npm run visits:web
+```
+
+Lo manda `go.js` con `sendBeacon`, que es lo único que el navegador promete
+entregar aunque la página ya se haya ido. No cuenta a los robots, ni lo que se
+sirve en local (por `http`), ni las visitas con `?stay`. Para probar que sigue
+vivo sin ensuciar la cuenta, `?c=prueba`: se apunta de verdad y el informe lo
+deja aparte.
+
+Como es algo que la página antes no hacía, está dicho en la política de
+privacidad (`eltopjohn-privacy`, apartado «La página del juego»). Si cambia lo
+que se cuenta, cambia allí el mismo día.
+
 ## Buscadores y asistentes
 
 - **A un robot no se le mueve.** Googlebot y Bingbot leen la página con un
